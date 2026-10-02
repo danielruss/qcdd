@@ -1,0 +1,16 @@
+Package: qcdd
+Title: Builds a data dictionary for use with QAQC
+Version: 0.0.0.9000
+Authors@R: 
+    person("Daniel", "Russ", , "druss@mail.nih.gov", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 8.0.0
+Imports: 
+    dplyr,
+    purrr,
+    rio,
+    rlang,
+    tibble
