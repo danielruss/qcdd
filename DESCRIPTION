@@ -1,13 +1,19 @@
 Package: qcdd
-Title: Builds a data dictionary for use with QAQC
+Title: Build a Data Dictionary for Use with QAQC
 Version: 0.0.0.9000
 Authors@R: 
     person("Daniel", "Russ", , "druss@mail.nih.gov", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: Builds concept lookup tables from Connect data dictionaries to
+    support quality assurance and quality control workflows. Combines concept
+    identifiers and definitions across dictionary columns, removes duplicate
+    entries and records with missing identifiers, and reports conflicting
+    definitions for review.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 8.0.0
+Depends:
+    R (>= 4.1.0)
 Imports: 
     dplyr,
     purrr,

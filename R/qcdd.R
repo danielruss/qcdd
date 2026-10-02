@@ -6,7 +6,7 @@
 #'
 #' @returns a tibble containing the dictionary
 #' 
-#' @keywords internal
+#' @export
 load_dictionary_file <- function(path,...){
   stopifnot(file.exists(path.expand(path)))
 

@@ -18,4 +18,3 @@ a tibble containing the dictionary
 \description{
 Load the dictionary
 }
-\keyword{internal}
