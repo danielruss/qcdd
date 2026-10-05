@@ -3,3 +3,4 @@
 export(add_concept_ids)
 export(cid_warning)
 export(load_dictionary_file)
+export(make_dictionary)

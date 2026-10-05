@@ -147,3 +147,49 @@ cid_warning <- function(df) {
 #'   value in `y` returns `NA` when the corresponding value in `x` is not missing.
 #' @keywords internal
 `%!=%` <- function(x,y) is.na(x) | x!=y
+
+#' Build a concept dictionary from a file
+#'
+#' Import a dictionary file with [load_dictionary_file()] and combine selected
+#' concept ID and definition columns with [add_concept_ids()].
+#'
+#' @param path Path to the dictionary file.
+#' @param concept_ids Bare concept ID column names, supplied as a single name
+#'   or combined with `c()`.
+#' @param definitions Bare definition column names, supplied as a single name
+#'   or combined with `c()`, in the same order as `concept_ids`.
+#' @param ... Additional arguments passed to [load_dictionary_file()] and
+#'   ultimately to [rio::import()], such as `sheet` and `col_types` for Excel.
+#' @details Column pairs must have equal lengths. Identical ID-definition pairs
+#'   and rows with missing concept IDs are removed. Leading numeric value labels
+#'   such as `1 = ` are stripped from definitions. Conflicting definitions issue
+#'   a warning, and the first occurrence is retained, using column-pair order
+#'   followed by input row order. Missing definitions are retained. See
+#'   [add_concept_ids()] for details.
+#' @returns A tibble with `concept_id` and `definitions` columns and one row per
+#'   non-missing concept ID. When conflicts occur, the conflict report is stored
+#'   in the `CID_warning` attribute and can be retrieved with [cid_warning()].
+#' @examples
+#' path <- tempfile(fileext = ".csv")
+#' utils::write.csv(
+#'   data.frame(
+#'     concept_id_1 = c("72841936", "39508271"),
+#'     definition_1 = c("Age", "Height"),
+#'     concept_id_2 = c("86173409", "54296813"),
+#'     definition_2 = c("Weight", "Blood pressure")
+#'   ),
+#'   path, row.names = FALSE
+#' )
+#' dictionary <- make_dictionary(
+#'   path,
+#'   concept_ids = c(concept_id_1, concept_id_2),
+#'   definitions = c(definition_1, definition_2),
+#'   colClasses = "character"
+#' )
+#' dictionary
+#' unlink(path)
+#' @export
+make_dictionary <- function(path,concept_ids,definitions,...){
+  load_dictionary_file(path,...) |>
+    add_concept_ids({{concept_ids}},{{definitions}})
+}
